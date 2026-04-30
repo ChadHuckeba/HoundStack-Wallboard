@@ -112,11 +112,11 @@ async def get_live_weather():
 # Mock data
 SCHEDULE = [
     {"time": "05:00 AM", "activity": "Wake Up & Potty", "icon": "🌅"},
-    {"time": "07:00 AM", "activity": "Morning Walk (1.5 mi)", "icon": "🦮"},
-    {"time": "08:00 AM", "activity": "Breakfast (Separate)", "icon": "🥣"},
+    {"time": "07:00 AM", "activity": "Morning Walk (~1.5 mi)", "icon": "🦮"},
+    {"time": "08:00 AM", "activity": "Breakfast", "icon": "🥣"},
     {"time": "Periodic", "activity": "Potty & Play", "icon": "🎾"},
     {"time": "07:00 PM", "activity": "Evening Walk (1.5 mi)", "icon": "🌙"},
-    {"time": "08:00 PM", "activity": "Dinner (Separate)", "icon": "🥩"},
+    {"time": "08:00 PM", "activity": "Dinner", "icon": "🥩"},
     {"time": "09:00 PM", "activity": "Bedtime", "icon": "💤"},
 ]
 

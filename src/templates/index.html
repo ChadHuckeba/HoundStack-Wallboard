@@ -163,22 +163,22 @@
             </div>
 
             <div class="glass rounded-[2rem] p-10 relative overflow-hidden flex-1 border-white/5 min-h-0">
-                <h3 class="text-2xl font-bold mb-8 flex items-center gap-3 tracking-tight text-white/90">
+                <h3 class="text-2xl font-bold mb-10 flex items-center gap-3 tracking-tight text-white/90">
                     <i class="fas fa-calendar-day text-amber-500"></i>
                     Daily Rhythm
                 </h3>
-                <div class="space-y-6 relative pr-2 overflow-y-auto h-[calc(100%-60px)]">
+                <div class="space-y-8 relative pr-2 overflow-y-auto h-[calc(100%-80px)]">
                     {% for item in schedule %}
-                    <div class="flex items-center gap-4 group">
-                        <div class="z-10 w-8 h-8 rounded-lg glass border-amber-500/20 flex items-center justify-center text-sm">
+                    <div class="flex items-center gap-6 group">
+                        <div class="z-10 w-10 h-10 rounded-xl glass border-amber-500/20 flex items-center justify-center text-lg">
                             {{ item.icon }}
                         </div>
                         <div class="flex-1">
                             <div class="flex justify-between items-baseline">
-                                <div class="text-white text-base font-semibold group-hover:text-amber-400 leading-none">{{ item.activity }}</div>
-                                <div class="text-amber-500/70 font-black text-sm uppercase tracking-tight pl-2 tabular-nums">{{ item.time }}</div>
+                                <div class="text-white text-xl font-semibold group-hover:text-amber-400 leading-none">{{ item.activity }}</div>
+                                <div class="text-amber-500/70 font-black text-base uppercase tracking-tight pl-2 tabular-nums">{{ item.time }}</div>
                             </div>
-                            <div class="h-[1px] w-full bg-slate-800/50 mt-1"></div>
+                            <div class="h-[1px] w-full bg-slate-800/50 mt-2"></div>
                         </div>
                     </div>
                     {% endfor %}
@@ -201,42 +201,42 @@
             </div>
 
             <div class="glass rounded-[2rem] p-10 relative overflow-hidden flex-1 border-white/5 min-h-0">
-                <h3 class="text-2xl font-bold mb-8 flex items-center gap-3 tracking-tight text-white/90">
+                <h3 class="text-2xl font-bold mb-10 flex items-center gap-3 tracking-tight text-white/90">
                     <i class="fas fa-comments text-amber-500"></i>
                     Discussion Topics
                 </h3>
-                <div class="space-y-6 h-[calc(100%-80px)] overflow-y-auto pr-2">
+                <div class="space-y-8 h-[calc(100%-80px)] overflow-y-auto pr-2">
                     <div class="group">
-                        <div class="flex items-center gap-3 mb-2">
-                            <div class="text-white text-xl serif leading-none">Bedtime</div>
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="text-white text-2xl serif leading-none">Bedtime</div>
                         </div>
-                        <ul class="text-slate-400 text-sm space-y-2 pl-6 list-disc leading-relaxed">
+                        <ul class="text-slate-400 text-base space-y-3 pl-6 list-disc leading-relaxed">
                             <li><span class="text-slate-200 font-semibold">Sleep spots:</span> Preferred spots and their nightly routine.</li>
                             <li><span class="text-slate-200 font-semibold">The crate:</span> Comfort level and typical duration.</li>
                         </ul>
                     </div>
                     <div class="group">
-                        <div class="flex items-center gap-3 mb-2">
-                            <div class="text-white text-xl serif leading-none">Social & Safety</div>
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="text-white text-2xl serif leading-none">Social & Safety</div>
                         </div>
-                        <ul class="text-slate-400 text-sm space-y-2 pl-6 list-disc leading-relaxed">
+                        <ul class="text-slate-400 text-base space-y-3 pl-6 list-disc leading-relaxed">
                             <li><span class="text-slate-200 font-semibold">Spooky things:</span> Nervous triggers or loud noise sensitivities.</li>
                             <li><span class="text-slate-200 font-semibold">Making friends:</span> Behavior around new dogs and strangers.</li>
                             <li><span class="text-slate-200 font-semibold">Alone time:</span> How they handle being by themselves.</li>
                         </ul>
                     </div>
                     <div class="group">
-                        <div class="flex items-center gap-3 mb-2">
-                            <div class="text-white text-xl serif leading-none">House Habits</div>
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="text-white text-2xl serif leading-none">House Habits</div>
                         </div>
-                        <ul class="text-slate-400 text-sm space-y-2 pl-6 list-disc leading-relaxed">
+                        <ul class="text-slate-400 text-base space-y-3 pl-6 list-disc leading-relaxed">
                             <li><span class="text-slate-200 font-semibold">Chewing:</span> Nibbling habits vs. sticking to toys.</li>
                             <li><span class="text-slate-200 font-semibold">Potty stuff:</span> History of accidents or nervous bladder.</li>
                         </ul>
                     </div>
                     <div class="group">
-                        <div class="text-white text-xl serif leading-none mb-1">Bring a little piece of home!</div>
-                        <div class="text-slate-400 text-sm italic pl-4 leading-relaxed">
+                        <div class="text-white text-2xl serif leading-none mb-2">Bring a little piece of home!</div>
+                        <div class="text-slate-400 text-base italic pl-4 leading-relaxed">
                             A familiar scent (blanket or shirt) helps them settle in. ❤️
                         </div>
                     </div>

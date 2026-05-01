@@ -98,7 +98,10 @@
             <!-- Welcome Card -->
             <div class="glass rounded-[2rem] p-6 border-amber-500/10 flex flex-col gap-4">
                 <div class="overflow-visible flex flex-col">
-                    <div class="text-white text-xl font-light tracking-tight text-left">Welcome,</div>
+                    <h3 class="text-2xl font-bold mb-4 flex items-center gap-3 tracking-tight text-white/90">
+                        <i class="fas fa-door-open text-amber-500"></i>
+                        Welcome
+                    </h3>
                     <div class="serif text-5xl text-gradient leading-tight mx-auto text-center w-full">
                         {{ pup_name }}
                     </div>
@@ -121,13 +124,19 @@
             </div>
 
             <!-- Host Info Card -->
-            <div class="glass rounded-[1.5rem] p-5 border-amber-500/10 flex flex-col items-center justify-center gap-4 flex-1 min-h-0 overflow-hidden">
-                <div class="text-center">
-                    <div class="text-white text-2xl font-black leading-none tracking-tighter mb-1">Chad Huckeba</div>
-                    <div class="text-amber-500 text-[0.6rem] tracking-[0.3em] uppercase font-black">Scan for Linktree</div>
-                </div>
-                <div class="p-1.5 bg-white rounded-2xl shadow-2xl shrink-0 overflow-hidden w-32 h-32">
-                    <img src="/static/assets/ui/chad_linktree.png" alt="QR Code" class="w-full h-full object-cover">
+            <div class="glass rounded-[1.5rem] p-5 border-amber-500/10 flex flex-col gap-4 flex-1 min-h-0 overflow-hidden">
+                <h3 class="text-2xl font-bold mb-2 flex items-center gap-3 tracking-tight text-white/90">
+                    <i class="fas fa-id-card text-amber-500"></i>
+                    Your Host
+                </h3>
+                <div class="flex flex-col items-center justify-center gap-4 flex-1">
+                    <div class="text-center">
+                        <div class="text-white text-2xl font-black leading-none tracking-tighter mb-1">Chad Huckeba</div>
+                        <div class="text-amber-500 text-[0.6rem] tracking-[0.3em] uppercase font-black">Scan for Linktree</div>
+                    </div>
+                    <div class="p-1.5 bg-white rounded-2xl shadow-2xl shrink-0 overflow-hidden w-32 h-32">
+                        <img src="/static/assets/ui/chad_linktree.png" alt="QR Code" class="w-full h-full object-cover">
+                    </div>
                 </div>
             </div>
         </div>

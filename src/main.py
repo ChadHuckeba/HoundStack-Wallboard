@@ -30,7 +30,6 @@ WEATHER_MAP = {
     95: {"condition": "Stormy", "icon": "fa-bolt"},
 }
 
-# In-memory cache for weather
 weather_cache = {"data": None, "expiry": datetime.now()}
 
 async def get_live_weather():
@@ -51,13 +50,10 @@ async def get_live_weather():
         async with httpx.AsyncClient() as client:
             response = await client.get(url, params=params)
             data = response.json()
-
             current = data["current_weather"]
             daily = data["daily"]
-            
             w_code = int(current["weathercode"])
             current_info = WEATHER_MAP.get(w_code, {"condition": "Cloudy", "icon": "fa-cloud"})
-            
             prob_today = daily['precipitation_probability_max'][0]
             if w_code >= 51 and prob_today < 20:
                  current_info = {"condition": "Partly Cloudy", "icon": "fa-cloud-sun"}
@@ -79,15 +75,12 @@ async def get_live_weather():
                 date_str = daily["time"][i]
                 date_obj = datetime.strptime(date_str, "%Y-%m-%d")
                 day_name = days[date_obj.weekday()]
-                
                 f_code = int(daily["weathercode"][i])
                 f_prob = daily["precipitation_probability_max"][i]
                 f_info = WEATHER_MAP.get(f_code, {"icon": "fa-cloud"})
-                
                 icon = f_info["icon"]
                 if f_code >= 51 and f_prob < 25:
                     icon = "fa-cloud-sun"
-
                 weather_data["forecast"].append({
                     "day": day_name,
                     "temp": f"{round(daily['temperature_2m_max'][i])}°",
@@ -98,7 +91,7 @@ async def get_live_weather():
             weather_cache["data"] = weather_data
             weather_cache["expiry"] = datetime.now() + timedelta(minutes=15)
             return weather_data
-    except Exception as e:
+    except Exception:
         return {
             "current": {"temp": "--", "condition": "Offline", "icon": "fa-exclamation-triangle", "high": "--", "low": "--", "rain_prob": "0%"},
             "forecast": []
@@ -122,10 +115,10 @@ VET_INFO = {
 }
 
 @app.get("/")
-async def read_wallboard(request: Request, pup: str = "Our Guest", img: str = "example_pup.jpg"):
+async def read_wallboard(request: Request, pup: str = "ParentName & PupName", img: str = "example_pup.jpg"):
     live_weather = await get_live_weather()
     
-    # Scan for available dogs (Active only, skip 'archive' folder)
+    # Scan for available dogs
     dogs_dir = os.path.join(BASE_DIR, "static", "assets", "dogs")
     available_dogs = []
     if os.path.exists(dogs_dir):
@@ -138,16 +131,23 @@ async def read_wallboard(request: Request, pup: str = "Our Guest", img: str = "e
                 name_part = filename.rsplit('.', 1)[0]
                 parts = name_part.split('_')
                 
-                if len(parts) == 3:
-                    # New format: [parent]_[pup]_[date]
-                    parent, pup_name, date_str = parts
-                    display_name = f"{parent.capitalize()}_{pup_name.capitalize()}"
+                if len(parts) >= 3:
+                    # New format: [Parent1]_[Parent2]_..._[Pup]_[Date]
+                    date_str = parts[-1]
+                    pup_name = parts[-2].capitalize()
+                    parent_list = [p.capitalize() for p in parts[:-2]]
+                    
+                    if len(parent_list) == 1:
+                        display_name = f"{parent_list[0]} & {pup_name}"
+                    else:
+                        display_name = f"{', '.join(parent_list[:-1])}, {parent_list[-1]} & {pup_name}"
+                        
                     if len(date_str) == 6:
                         display_date = f"{date_str[:2]}.{date_str[2:4]}.{date_str[4:]}"
                     else:
                         display_date = date_str
                 elif len(parts) == 2:
-                    # Legacy format: [pup]_[date]
+                    # Fallback: [Pup]_[Date]
                     pup_name, date_str = parts
                     display_name = pup_name.capitalize()
                     if len(date_str) == 6:
@@ -184,4 +184,4 @@ async def read_wallboard(request: Request, pup: str = "Our Guest", img: str = "e
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("main:app", host="0.0.0.0", port=8080, reload=True)
+    uvicorn.run(app, host="0.0.0.0", port=8080)

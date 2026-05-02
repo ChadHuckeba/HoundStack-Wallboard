@@ -9,6 +9,7 @@ from fastapi.staticfiles import StaticFiles
 app = FastAPI(title="HoundStack Wallboard")
 
 # Setup templates and static files
+# Ensure we use an absolute path for BASE_DIR regardless of execution context
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 templates = Jinja2Templates(directory=os.path.join(BASE_DIR, "templates"))
 app.mount("/static", StaticFiles(directory=os.path.join(BASE_DIR, "static")), name="static")
@@ -55,11 +56,9 @@ async def get_live_weather():
             current = data["current_weather"]
             daily = data["daily"]
             
-            # 1. Process Current Weather
             w_code = int(current["weathercode"])
             current_info = WEATHER_MAP.get(w_code, {"condition": "Cloudy", "icon": "fa-cloud"})
             
-            # Logic: If it's a "Stormy" code but prob is < 20%, override to Clear/Cloudy
             prob_today = daily['precipitation_probability_max'][0]
             if w_code >= 51 and prob_today < 20:
                  current_info = {"condition": "Partly Cloudy", "icon": "fa-cloud-sun"}
@@ -76,7 +75,6 @@ async def get_live_weather():
                 "forecast": []
             }
 
-            # 2. Build 5-day forecast
             days = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"]
             for i in range(1, 6):
                 date_str = daily["time"][i]
@@ -87,10 +85,9 @@ async def get_live_weather():
                 f_prob = daily["precipitation_probability_max"][i]
                 f_info = WEATHER_MAP.get(f_code, {"icon": "fa-cloud"})
                 
-                # Accuracy Logic: Override icons if probability is low
                 icon = f_info["icon"]
                 if f_code >= 51 and f_prob < 25:
-                    icon = "fa-cloud-sun" # Better safe than wet
+                    icon = "fa-cloud-sun"
 
                 weather_data["forecast"].append({
                     "day": day_name,
@@ -103,13 +100,11 @@ async def get_live_weather():
             weather_cache["expiry"] = datetime.now() + timedelta(minutes=15)
             return weather_data
     except Exception as e:
-        print(f"Weather API Error: {e}")
         return {
             "current": {"temp": "--", "condition": "Offline", "icon": "fa-exclamation-triangle", "high": "--", "low": "--", "rain_prob": "0%"},
             "forecast": []
         }
 
-# Mock data
 SCHEDULE = [
     {"time": "05:00 AM", "activity": "Wake Up & Potty", "icon": "🌅"},
     {"time": "06:00 AM", "activity": "Breakfast", "icon": "🥣"},
@@ -128,12 +123,35 @@ VET_INFO = {
 }
 
 @app.get("/")
-async def read_wallboard(request: Request, pup: str = "Our Guest", img: str = None):
+async def read_wallboard(request: Request, pup: str = "Our Guest", img: str = "example_pup.jpg"):
     live_weather = await get_live_weather()
     
-    # Default image logic: If no image provided, use a placeholder
-    # You can drop images into src/static/assets/dogs/
-    pup_image = f"/static/assets/dogs/{img}" if img else None
+    # Scan for available dogs
+    dogs_dir = os.path.join(BASE_DIR, "static", "assets", "dogs")
+    available_dogs = []
+    if os.path.exists(dogs_dir):
+        for filename in os.listdir(dogs_dir):
+            if filename.lower().endswith(('.png', '.jpg', '.jpeg', '.webp')) and filename != "example_pup.jpg":
+                # Parse <name>_<mmddyy> format
+                name_part = filename.rsplit('.', 1)[0]
+                if '_' in name_part:
+                    name, date_str = name_part.split('_', 1)
+                    # Format mmddyy to MM.DD.YY for display
+                    if len(date_str) == 6:
+                        display_date = f"{date_str[:2]}.{date_str[2:4]}.{date_str[4:]}"
+                    else:
+                        display_date = date_str
+                else:
+                    name, display_date = name_part, "Unknown"
+                
+                available_dogs.append({
+                    "name": name.capitalize(),
+                    "date": display_date,
+                    "filename": filename
+                })
+    
+    # Default image logic: If no image provided, use example_pup.jpg
+    pup_image = f"/static/assets/dogs/{img}"
 
     return templates.TemplateResponse(
         request=request, 
@@ -145,6 +163,7 @@ async def read_wallboard(request: Request, pup: str = "Our Guest", img: str = No
             "weather": live_weather,
             "pup_name": pup,
             "pup_image": pup_image,
+            "available_dogs": sorted(available_dogs, key=lambda x: x['name']),
             "current_time": datetime.now().strftime("%I:%M %p")
         }
     )

@@ -1,3 +1,5 @@
+from pathlib import Path
+from cairn import Cairn
 import os
 import httpx
 import asyncio
@@ -6,6 +8,13 @@ from fastapi import FastAPI, Request
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 
+
+# Initialize Cairn Logging Authority
+BASE_DIR = Path(__file__).parent.parent
+Cairn.initialize(
+    project_name="wallboard",
+    log_file=str(BASE_DIR / "houndstack.log")
+)
 app = FastAPI(title="HoundStack Wallboard")
 
 # Setup templates and static files

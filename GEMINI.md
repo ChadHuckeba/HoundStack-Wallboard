@@ -1,6 +1,21 @@
 # WALLBOARD: ARCHITECTURAL SOURCE OF TRUTH
+*Governs project-specific architecture, localized mandates, and strategic intent. Procedural execution is delegated to specialized SKILLS.*
 
-## 1.0 THE WALLBOARD MANDATE
+### Architecture at a Glance
+| Component | Purpose | Role |
+| :--- | :--- | :--- |
+| **Policy** | This file (\`GEMINI.md\`) | **Supreme Authority** |
+| **Memory** | \`MEMORY.md\` | Persistent State |
+| **Docs** | \`/docs/\` | Functional Specs |
+
+### Precedence Statement
+**Global Policy (Ecosystem) > Project Policy (Local).** This file may add project-specific specificity but cannot contradict Global mandates. In this repository, \`/docs\` expands upon the architectural truth established in \`GEMINI.md\`, but \`GEMINI.md\` retains highest precedence for autonomous mandates.
+
+---
+
+## 1. Project Architecture & Constraints
+
+### 1.1 The Wallboard Mandate
 Wallboard is the primary visualization and monitoring hub for the HoundStack. It provides real-time telemetry and management interfaces for all PUP (Personal Utility Platform) services.
 
 ## 2.0 ARCHITECTURAL DECISIONS
@@ -16,5 +31,5 @@ All UI components MUST adhere to the **HoundStack Aesthetic Standard**: high-con
 *   **Zero-Cost Local:** Wallboard is designed for local-first deployment. No paid cloud services are authorized for Puppeteer orchestration without explicit security review.
 
 ## 3.0 TROUBLESHOOTING
-*   **Ingestion Lag:** Verify Cairn project tag accuracy in `registry.json`.
+*   **Ingestion Lag:** Verify Cairn project tag accuracy in \`registry.json\`.
 *   **UI Artifacts:** Force-clear browser cache and verify CSS source injection.

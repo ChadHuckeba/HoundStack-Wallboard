@@ -16,7 +16,7 @@
 ## 1. Project Architecture & Constraints
 
 ### 1.1 The Wallboard Mandate
-Wallboard is the primary visualization and monitoring hub for the HoundStack. It provides real-time telemetry and management interfaces for all PUP (Personal Utility Platform) services.
+Wallboard is a single-screen Meet and Greet display tool for Rover pet care sessions. It presents dog profile information, daily care schedules, discussion topics, and host details to pet owners during intake meetings. The non-negotiable UI constraint is single-screen integrity — zero scrolling, zero overflow at all times.
 
 ## 2.0 ARCHITECTURAL DECISIONS
 
@@ -24,11 +24,10 @@ Wallboard is the primary visualization and monitoring hub for the HoundStack. It
 All UI components MUST adhere to the **HoundStack Aesthetic Standard**: high-contrast, professional, and optimized for CLI-first operators. Consistency in spacing and typography is non-negotiable.
 
 ### 2.2 Telemetry Integration
-*   **Mandate:** All Puppy (Puppeteer) services MUST feed telemetry to the Wallboard ingestion API.
-*   **Standard:** Raw puppy logs are intercepted by Cairn and forwarded to Wallboard for visualization.
+All logging MUST use Cairn initialized via cairn.initialize(). Raw print() statements are prohibited. Log files are stored in logs/ per the SurvivalStack logging standard.
 
 ### 2.3 Deployment Constraints
-*   **Zero-Cost Local:** Wallboard is designed for local-first deployment. No paid cloud services are authorized for Puppeteer orchestration without explicit security review.
+*   **Zero-Cost Local:** Wallboard is designed for local-first deployment. No paid cloud services are authorized without explicit security review.
 
 ## 3.0 TROUBLESHOOTING
 *   **Ingestion Lag:** Verify Cairn project tag accuracy in \`registry.json\`.

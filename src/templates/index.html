@@ -97,13 +97,13 @@
                             <span id="clock-ampm" class="text-xl opacity-40 ml-2 font-bold">--</span>
                         </div>
                         <div class="h-8 w-[1px] bg-white/10"></div>
-                        <div class="flex flex-col justify-center text-[0.55rem] font-bold text-slate-500 uppercase tracking-widest leading-normal">
+                        <div class="flex flex-col justify-center text-[0.65rem] font-bold text-slate-500 uppercase tracking-widest leading-normal">
                             <div class="flex items-center gap-1">
-                                <i class="fas fa-sun text-amber-500/70 text-[0.65rem] w-3.5 text-center"></i>
+                                <i class="fas fa-sun text-amber-500/70 text-[0.75rem] w-3.5 text-center"></i>
                                 <span>{{ weather.current.sunrise | default('--') }}</span>
                             </div>
                             <div class="flex items-center gap-1">
-                                <i class="fas fa-moon text-indigo-400/70 text-[0.65rem] w-3.5 text-center"></i>
+                                <i class="fas fa-moon text-indigo-400/70 text-[0.75rem] w-3.5 text-center"></i>
                                 <span>{{ weather.current.sunset | default('--') }}</span>
                             </div>
                         </div>
@@ -224,9 +224,8 @@
                     </div>
                     <!-- Right side: high/low/rain metrics -->
                     <div class="text-right text-[0.6rem] font-black text-slate-400 uppercase leading-none space-y-1">
-                        <div class="text-slate-500 font-bold tracking-widest mb-0.5">{{ weather.current.condition | default('Unknown') }}</div>
-                        <div class="text-slate-200">High: {{ weather.current.high }} / Low: {{ weather.current.low }}</div>
-                        <div class="{% if (weather.current.rain_prob_val | default(0)) >= 70 %}text-blue-400 text-xs font-bold{% elif (weather.current.rain_prob_val | default(0)) >= 40 %}text-blue-400/90 text-[0.6rem] font-semibold{% elif (weather.current.rain_prob_val | default(0)) >= 20 %}text-blue-400/75 text-[0.55rem] font-medium{% else %}text-slate-500/60 text-[0.55rem]{% endif %}">
+                        <div class="text-slate-200 text-[0.7rem]">High: {{ weather.current.high }} / Low: {{ weather.current.low }}</div>
+                        <div class="{% if (weather.current.rain_prob_val | default(0)) >= 70 %}text-blue-400 text-sm font-bold{% elif (weather.current.rain_prob_val | default(0)) >= 40 %}text-blue-400/90 text-[0.7rem] font-semibold{% elif (weather.current.rain_prob_val | default(0)) >= 20 %}text-blue-400/75 text-[0.65rem] font-medium{% else %}text-slate-500/60 text-[0.65rem]{% endif %}">
                             <i class="fas fa-droplet mr-0.5 {% if (weather.current.rain_prob_val | default(0)) >= 50 %}opacity-100{% else %}opacity-50{% endif %}"></i>Rain: {{ weather.current.rain_prob }}
                         </div>
                     </div>

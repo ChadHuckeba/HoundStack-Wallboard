@@ -52,7 +52,6 @@
         .pup-image-container {
             position: relative;
             width: 100%;
-            height: 250px;
             border-radius: 1.5rem;
             overflow: hidden;
             border: 1px solid rgba(245, 158, 11, 0.2);
@@ -146,7 +145,7 @@
             </div>
 
             <!-- Welcome Card -->
-            <div class="glass rounded-[2rem] p-4 border-amber-500/10 flex flex-col gap-3 shadow-xl">
+            <div class="glass rounded-[2rem] p-4 border-amber-500/10 flex flex-col gap-3 shadow-xl flex-1 min-h-0">
                 <div class="overflow-visible flex flex-col">
                     <h3 class="text-lg font-bold mb-1 flex items-center gap-3 tracking-tight text-white/90">
                         <i class="fas fa-door-open text-amber-500 text-sm"></i>
@@ -157,13 +156,13 @@
                     </div>
                 </div>
 
-                <div class="relative mx-auto w-full">
+                <div class="relative mx-auto w-full flex-1 min-h-0 flex flex-col">
                     {% if pup_image %}
-                    <div class="pup-image-container shadow-2xl h-[250px]">
+                    <div class="pup-image-container shadow-2xl flex-1 min-h-0">
                         <img src="{{ pup_image }}" alt="{{ pup_name }}">
                     </div>
                     {% else %}
-                    <div class="pup-image-container bg-slate-800/50 flex items-center justify-center border-dashed border-slate-700 h-[250px]">
+                    <div class="pup-image-container bg-slate-800/50 flex items-center justify-center border-dashed border-slate-700 flex-1 min-h-0">
                         <div class="text-center p-4">
                             <i class="fas fa-camera text-slate-600 text-4xl mb-2"></i>
                             <p class="text-slate-500 text-[0.5rem] font-bold uppercase tracking-widest leading-tight">Guest Photo Placeholder</p>
@@ -174,12 +173,12 @@
             </div>
 
             <!-- Host Info Card -->
-            <div class="glass rounded-[1.5rem] p-4 border-amber-500/10 flex flex-col gap-2 flex-1 min-h-0 overflow-hidden shadow-lg">
+            <div class="glass rounded-[1.5rem] p-4 border-amber-500/10 flex flex-col gap-2 shadow-lg">
                 <h3 class="text-lg font-bold mb-0.5 flex items-center gap-3 tracking-tight text-white/90">
                     <i class="fas fa-id-card text-amber-500 text-sm"></i>
                     Your Host
                 </h3>
-                <div class="flex flex-col items-center justify-center gap-2 flex-1">
+                <div class="flex flex-col items-center justify-center gap-2">
                     <div class="text-center">
                         <div class="text-white text-3xl font-black leading-none tracking-tighter mb-1">Chad Huckeba</div>
                         <div class="text-amber-500 text-[0.7rem] tracking-[0.2em] uppercase font-black">Scan for Linktree</div>
@@ -194,38 +193,41 @@
         <!-- COLUMN 2: ENVIRONMENT & SCHEDULE -->
         <div class="col-span-4 flex flex-col gap-3 h-full">
             <div class="bg-white/5 rounded-[2rem] p-4 border border-white/5 shadow-lg">
-                <h3 class="text-lg font-bold mb-4 flex items-center gap-3 tracking-tight text-white/90">
-                    <i class="fas fa-cloud-sun text-amber-500 text-sm"></i>
-                    Pflugerville Now
-                </h3>
                 <div class="flex items-center justify-between mb-2">
-                    <div class="flex items-center gap-4">
-                        <i class="fas {{ weather.current.icon }} text-3xl {% if weather.current.is_hot | default(false) %}text-red-500{% else %}text-amber-500{% endif %}"></i>
-                        <div>
-                            <div class="text-3xl font-bold tracking-tighter {% if weather.current.is_hot | default(false) %}text-red-500{% else %}text-white{% endif %}">{{ weather.current.temp }}</div>
-                            {% if (weather.current.feels_like | default(weather.current.temp)) != weather.current.temp %}
-                            <div class="text-[0.6rem] text-slate-500 font-bold uppercase tracking-wider mt-0.5">Feels: {{ weather.current.feels_like }}</div>
-                            {% else %}
-                            <div class="text-slate-400 text-[0.6rem] font-bold uppercase tracking-widest mt-0.5">{{ weather.current.condition }}</div>
-                            {% endif %}
+                    <!-- Left side: title + current weather -->
+                    <div class="flex items-center gap-3">
+                        <div class="flex items-center gap-2">
+                            <i class="fas fa-cloud text-amber-500 text-sm"></i>
+                            <span class="text-lg font-bold tracking-tight text-white/90">Pflugerville Weather</span>
+                        </div>
+                        <div class="h-4 w-[1px] bg-white/10"></div>
+                        <div class="flex items-center gap-2">
+                            <i class="fas {{ weather.current.icon }} text-2xl {% if weather.current.is_hot | default(false) %}text-red-500{% else %}text-amber-500{% endif %}"></i>
+                            <div class="flex flex-col justify-center">
+                                <div class="text-2xl font-bold tracking-tighter {% if weather.current.is_hot | default(false) %}text-red-500{% else %}text-white{% endif %} leading-none">{{ weather.current.temp }}</div>
+                                {% if (weather.current.feels_like | default(weather.current.temp)) != weather.current.temp %}
+                                <div class="text-[0.5rem] text-slate-500 font-bold uppercase tracking-wider mt-0.5">Feels: {{ weather.current.feels_like }}</div>
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
-                    <div class="text-right text-[0.6rem] font-black text-slate-400 uppercase leading-none space-y-1.5">
-                        <div class="text-slate-200">High: {{ weather.current.high }}</div>
-                        <div>Low: {{ weather.current.low }}</div>
-                        <div class="pt-0.5 {% if (weather.current.rain_prob_val | default(0)) >= 70 %}text-blue-400 text-xs font-bold{% elif (weather.current.rain_prob_val | default(0)) >= 40 %}text-blue-400/90 text-[0.6rem] font-semibold{% elif (weather.current.rain_prob_val | default(0)) >= 20 %}text-blue-400/75 text-[0.55rem] font-medium{% else %}text-slate-500/60 text-[0.55rem]{% endif %}">
+                    <!-- Right side: high/low/rain metrics -->
+                    <div class="text-right text-[0.6rem] font-black text-slate-400 uppercase leading-none space-y-1">
+                        <div class="text-slate-500 font-bold tracking-widest mb-0.5">{{ weather.current.condition | default('Unknown') }}</div>
+                        <div class="text-slate-200">High: {{ weather.current.high }} / Low: {{ weather.current.low }}</div>
+                        <div class="{% if (weather.current.rain_prob_val | default(0)) >= 70 %}text-blue-400 text-xs font-bold{% elif (weather.current.rain_prob_val | default(0)) >= 40 %}text-blue-400/90 text-[0.6rem] font-semibold{% elif (weather.current.rain_prob_val | default(0)) >= 20 %}text-blue-400/75 text-[0.55rem] font-medium{% else %}text-slate-500/60 text-[0.55rem]{% endif %}">
                             <i class="fas fa-droplet mr-0.5 {% if (weather.current.rain_prob_val | default(0)) >= 50 %}opacity-100{% else %}opacity-50{% endif %}"></i>Rain: {{ weather.current.rain_prob }}
                         </div>
                     </div>
                 </div>
                 <div class="grid grid-cols-5 gap-2 pt-3 border-t border-white/10">
                     {% for day in weather.forecast %}
-                    <div class="text-center group rounded-xl p-1 transition-all
+                    <div class="text-center group rounded-xl py-3 px-1 transition-all
                                 {% if day.is_hot | default(false) %} bg-red-500/10 border border-red-500/10
                                 {% elif (day.rain_prob_val | default(0)) >= 20 %} bg-blue-500/10 border border-blue-500/10
                                 {% else %} border border-transparent {% endif %}">
                         <div class="text-[0.45rem] font-black text-slate-600 uppercase mb-1 tracking-widest">{{ day.day }}</div>
-                        <i class="fas {{ day.icon }} {% if day.is_hot | default(false) %} text-red-500 {% else %} text-amber-500/80 {% endif %} text-lg mb-1"></i>
+                        <i class="fas {{ day.icon }} {% if day.is_hot | default(false) %} text-red-500 {% else %} text-amber-500/80 {% endif %} text-xl mb-1.5"></i>
                         <div class="text-sm font-bold {% if day.is_hot | default(false) %} text-red-400 {% else %} text-slate-300 {% endif %} leading-none">{{ day.temp }}</div>
                         {% if (day.rain_prob_val | default(0)) >= 20 %}
                         <div class="text-[0.55rem] text-blue-400 font-bold mt-1 flex items-center justify-center gap-0.5">
@@ -238,12 +240,12 @@
                 </div>
             </div>
 
-            <div class="glass rounded-[2rem] p-6 relative overflow-hidden flex-1 border-white/5 min-h-0 shadow-2xl">
+            <div class="glass rounded-[2rem] p-6 relative border-white/5 shadow-2xl flex flex-col">
                 <h3 class="text-lg font-bold mb-4 flex items-center gap-3 tracking-tight text-white/90">
                     <i class="fas fa-calendar-day text-amber-500 text-sm"></i>
                     Daily Rhythm
                 </h3>
-                <div class="space-y-4 relative pr-2 overflow-y-auto h-[calc(100%-60px)] custom-scrollbar">
+                <div class="space-y-6 relative pr-2">
                     {% for item in schedule %}
                     <div class="flex items-center gap-6 group">
                         <div class="z-10 w-10 h-10 rounded-xl glass border-amber-500/20 flex items-center justify-center text-xl shadow-lg">

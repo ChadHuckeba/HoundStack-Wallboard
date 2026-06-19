@@ -89,12 +89,23 @@
             
             <div class="flex items-start justify-between px-2">
                 <div class="space-y-1 text-left">
-                    <div class="flex items-baseline gap-2">
+                    <div class="flex items-center gap-4">
                         <div class="text-5xl font-light tracking-tighter text-white uppercase flex items-center gap-0">
                             <span id="clock-hours" class="tabular-nums">--</span>
                             <span class="animate-blink px-1 text-white opacity-100" style="margin-top: -0.1em;">:</span>
                             <span id="clock-mins" class="tabular-nums">--</span>
                             <span id="clock-ampm" class="text-xl opacity-40 ml-2 font-bold">--</span>
+                        </div>
+                        <div class="h-8 w-[1px] bg-white/10"></div>
+                        <div class="flex flex-col justify-center text-[0.55rem] font-bold text-slate-500 uppercase tracking-widest leading-normal">
+                            <div class="flex items-center gap-1">
+                                <i class="fas fa-sun text-amber-500/70 text-[0.65rem] w-3.5 text-center"></i>
+                                <span>{{ weather.current.sunrise | default('--') }}</span>
+                            </div>
+                            <div class="flex items-center gap-1">
+                                <i class="fas fa-moon text-indigo-400/70 text-[0.65rem] w-3.5 text-center"></i>
+                                <span>{{ weather.current.sunset | default('--') }}</span>
+                            </div>
                         </div>
                     </div>
                     <div class="flex items-center gap-2">
@@ -222,7 +233,7 @@
                 </div>
                 <div class="grid grid-cols-5 gap-2 pt-3 border-t border-white/10">
                     {% for day in weather.forecast %}
-                    <div class="text-center group rounded-xl py-3 px-1 transition-all
+                    <div class="text-center group rounded-xl py-4 px-1 transition-all
                                 {% if day.is_hot | default(false) %} bg-red-500/10 border border-red-500/10
                                 {% elif (day.rain_prob_val | default(0)) >= 20 %} bg-blue-500/10 border border-blue-500/10
                                 {% else %} border border-transparent {% endif %}">
@@ -245,7 +256,7 @@
                     <i class="fas fa-calendar-day text-amber-500 text-sm"></i>
                     Daily Rhythm
                 </h3>
-                <div class="space-y-6 relative pr-2">
+                <div class="space-y-8 relative pr-2">
                     {% for item in schedule %}
                     <div class="flex items-center gap-6 group">
                         <div class="z-10 w-10 h-10 rounded-xl glass border-amber-500/20 flex items-center justify-center text-xl shadow-lg">
@@ -306,8 +317,7 @@
                         </div>
                         <ul class="text-slate-400 text-base pl-4 list-disc space-y-0.5">
                             <li>Leash behavior: puller or loose?</li>
-                            <li>Reactions to other dogs, strangers, runners, cyclists</li>
-                            <li>Ellie and I average 3-4 miles of walking daily and are working toward 8 miles/day cycling; does your pup fit an active pace?</li>
+                            <li>Reactions to other dogs, strangers, runners, and cyclists</li>
                         </ul>
                     </div>
 
@@ -320,8 +330,9 @@
                         <ul class="text-slate-400 text-base pl-4 list-disc space-y-0.5">
                             <li>Spooky things: nervous triggers, loud noises</li>
                             <li>Friendliness with new people and dogs</li>
-                            <li>A backyard potty break always happens before leaving, out no longer than 1.5 hours</li>
-                            <li>Crated or loose when home alone? Any anxiety signals?</li>
+                            <li>I run dog walking and drop-in visits for other regular clients: Bella on Tuesdays, Eevee and Tina for drop-ins, and Luke and Leia on Thursdays and Saturdays</li>
+                            <li>These visits typically run 1 to 1.5 hours, so your pup may be alone for that stretch</li>
+                            <li>How do you feel about this? Crated or free roam while I'm out? Any anxiety signals to watch for?</li>
                         </ul>
                     </div>
 

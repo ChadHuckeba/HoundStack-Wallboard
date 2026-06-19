@@ -50,7 +50,7 @@ async def get_live_weather():
         "latitude": PFLUGERVILLE_COORDS["lat"],
         "longitude": PFLUGERVILLE_COORDS["lon"],
         "current_weather": True,
-        "daily": ["weathercode", "temperature_2m_max", "temperature_2m_min", "precipitation_probability_max", "apparent_temperature_max", "apparent_temperature_min"],
+        "daily": ["weathercode", "temperature_2m_max", "temperature_2m_min", "precipitation_probability_max", "apparent_temperature_max", "apparent_temperature_min", "sunrise", "sunset"],
         "temperature_unit": "fahrenheit",
         "timezone": "auto"
     }
@@ -67,6 +67,21 @@ async def get_live_weather():
             if w_code >= 51 and prob_today < 20:
                  current_info = {"condition": "Partly Cloudy", "icon": "fa-cloud-sun"}
 
+            sunrise_str = "--"
+            sunset_str = "--"
+            if "sunrise" in daily and len(daily["sunrise"]) > 0:
+                try:
+                    sunrise_dt = datetime.strptime(daily["sunrise"][0], "%Y-%m-%dT%H:%M")
+                    sunrise_str = sunrise_dt.strftime("%-I:%M %p")
+                except Exception:
+                    pass
+            if "sunset" in daily and len(daily["sunset"]) > 0:
+                try:
+                    sunset_dt = datetime.strptime(daily["sunset"][0], "%Y-%m-%dT%H:%M")
+                    sunset_str = sunset_dt.strftime("%-I:%M %p")
+                except Exception:
+                    pass
+
             weather_data = {
                 "current": {
                     "temp": f"{round(current['temperature'])}°",
@@ -77,7 +92,9 @@ async def get_live_weather():
                     "rain_prob": f"{prob_today}%",
                     "rain_prob_val": prob_today,
                     "feels_like": f"{round(daily['apparent_temperature_max'][0])}°",
-                    "is_hot": daily['temperature_2m_max'][0] > 90
+                    "is_hot": daily['temperature_2m_max'][0] > 90,
+                    "sunrise": sunrise_str,
+                    "sunset": sunset_str
                 },
                 "forecast": []
             }
@@ -107,7 +124,7 @@ async def get_live_weather():
             return weather_data
     except Exception:
         return {
-            "current": {"temp": "--", "condition": "Offline", "icon": "fa-exclamation-triangle", "high": "--", "low": "--", "rain_prob": "0%", "rain_prob_val": 0, "feels_like": "--", "is_hot": False},
+            "current": {"temp": "--", "condition": "Offline", "icon": "fa-exclamation-triangle", "high": "--", "low": "--", "rain_prob": "0%", "rain_prob_val": 0, "feels_like": "--", "is_hot": False, "sunrise": "--", "sunset": "--"},
             "forecast": []
         }
 

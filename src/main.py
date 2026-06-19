@@ -50,7 +50,7 @@ async def get_live_weather():
         "latitude": PFLUGERVILLE_COORDS["lat"],
         "longitude": PFLUGERVILLE_COORDS["lon"],
         "current_weather": True,
-        "daily": ["weathercode", "temperature_2m_max", "temperature_2m_min", "precipitation_probability_max"],
+        "daily": ["weathercode", "temperature_2m_max", "temperature_2m_min", "precipitation_probability_max", "apparent_temperature_max", "apparent_temperature_min"],
         "temperature_unit": "fahrenheit",
         "timezone": "auto"
     }
@@ -74,7 +74,10 @@ async def get_live_weather():
                     "icon": current_info["icon"],
                     "high": f"{round(daily['temperature_2m_max'][0])}°",
                     "low": f"{round(daily['temperature_2m_min'][0])}°",
-                    "rain_prob": f"{prob_today}%"
+                    "rain_prob": f"{prob_today}%",
+                    "rain_prob_val": prob_today,
+                    "feels_like": f"{round(daily['apparent_temperature_max'][0])}°",
+                    "is_hot": daily['temperature_2m_max'][0] > 90
                 },
                 "forecast": []
             }
@@ -94,7 +97,9 @@ async def get_live_weather():
                     "day": day_name,
                     "temp": f"{round(daily['temperature_2m_max'][i])}°",
                     "icon": icon,
-                    "prob": f"{f_prob}%"
+                    "prob": f"{f_prob}%",
+                    "rain_prob_val": f_prob,
+                    "is_hot": daily['temperature_2m_max'][i] > 90
                 })
 
             weather_cache["data"] = weather_data
@@ -102,7 +107,7 @@ async def get_live_weather():
             return weather_data
     except Exception:
         return {
-            "current": {"temp": "--", "condition": "Offline", "icon": "fa-exclamation-triangle", "high": "--", "low": "--", "rain_prob": "0%"},
+            "current": {"temp": "--", "condition": "Offline", "icon": "fa-exclamation-triangle", "high": "--", "low": "--", "rain_prob": "0%", "rain_prob_val": 0, "feels_like": "--", "is_hot": False},
             "forecast": []
         }
 

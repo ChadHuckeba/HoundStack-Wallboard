@@ -56,7 +56,7 @@ async def get_live_weather():
     }
 
     try:
-        async with httpx.AsyncClient() as client:
+        async with httpx.AsyncClient(timeout=30.0) as client:
             response = await client.get(url, params=params)
             data = response.json()
             current = data["current_weather"]

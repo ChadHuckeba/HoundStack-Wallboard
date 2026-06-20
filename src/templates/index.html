@@ -52,6 +52,7 @@
         .pup-image-container {
             position: relative;
             width: 100%;
+            height: 280px;
             border-radius: 1.5rem;
             overflow: hidden;
             border: 1px solid rgba(245, 158, 11, 0.2);
@@ -167,13 +168,13 @@
                     </div>
                 </div>
 
-                <div class="relative mx-auto w-full flex-1 min-h-0 flex flex-col">
+                <div class="relative mx-auto w-full flex-1 min-h-0 flex flex-col justify-center">
                     {% if pup_image %}
-                    <div class="pup-image-container shadow-2xl flex-1 min-h-0">
+                    <div class="pup-image-container shadow-2xl">
                         <img src="{{ pup_image }}" alt="{{ pup_name }}">
                     </div>
                     {% else %}
-                    <div class="pup-image-container bg-slate-800/50 flex items-center justify-center border-dashed border-slate-700 flex-1 min-h-0">
+                    <div class="pup-image-container bg-slate-800/50 flex items-center justify-center border-dashed border-slate-700">
                         <div class="text-center p-4">
                             <i class="fas fa-camera text-slate-600 text-4xl mb-2"></i>
                             <p class="text-slate-500 text-[0.5rem] font-bold uppercase tracking-widest leading-tight">Guest Photo Placeholder</p>

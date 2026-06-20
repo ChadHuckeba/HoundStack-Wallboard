@@ -157,7 +157,7 @@
             </div>
 
             <!-- Welcome Card -->
-            <div class="glass rounded-[2rem] p-4 border-amber-500/10 flex flex-col gap-3 shadow-xl flex-1 min-h-0">
+            <div class="glass rounded-[2rem] p-4 border-amber-500/10 flex flex-col gap-3 shadow-xl">
                 <div class="overflow-visible flex flex-col">
                     <h3 class="text-lg font-bold mb-1 flex items-center gap-3 tracking-tight text-white/90">
                         <i class="fas fa-door-open text-amber-500 text-sm"></i>
@@ -168,7 +168,7 @@
                     </div>
                 </div>
 
-                <div class="relative mx-auto w-full flex-1 min-h-0 flex flex-col justify-center">
+                <div class="relative mx-auto w-full flex flex-col justify-center">
                     {% if pup_image %}
                     <div class="pup-image-container shadow-2xl">
                         <img src="{{ pup_image }}" alt="{{ pup_name }}">
@@ -295,11 +295,23 @@
                     Discussion Topics
                 </h3>
                 <div class="flex flex-col gap-4">
-                    <!-- 1. Daily Routine -->
+                    <!-- 1. Rover & Wag! -->
+                    <div class="pb-1">
+                        <div class="flex items-center gap-1.5 text-white font-semibold text-base mb-0.5">
+                            <i class="fas fa-dog text-amber-500 text-sm w-4 text-center"></i>
+                            <span>Rover & Wag!</span>
+                        </div>
+                        <ul class="text-slate-400 text-base pl-4 list-disc space-y-0.5">
+                            <li>Morning updates sent to you, plus updates during walks</li>
+                            <li>Want others looped in outside the apps? Happy to set up a group text</li>
+                        </ul>
+                    </div>
+
+                    <!-- 2. Routine -->
                     <div class="pb-1">
                         <div class="flex items-center gap-1.5 text-white font-semibold text-base mb-0.5">
                             <i class="fas fa-sun text-amber-500 text-sm w-4 text-center"></i>
-                            <span>Daily Routine</span>
+                            <span>Routine</span>
                         </div>
                         <ul class="text-slate-400 text-base pl-4 list-disc space-y-0.5">
                             <li>Feeding schedule and quirks or special instructions (e.g., toppers, cooked, resource guarding)</li>
@@ -309,19 +321,20 @@
                         </ul>
                     </div>
 
-                    <!-- 2. Out & About -->
+                    <!-- 3. Out & About -->
                     <div class="pb-1">
                         <div class="flex items-center gap-1.5 text-white font-semibold text-base mb-0.5">
                             <i class="fas fa-route text-amber-500 text-sm w-4 text-center"></i>
                             <span>Out & About</span>
                         </div>
                         <ul class="text-slate-400 text-base pl-4 list-disc space-y-0.5">
-                            <li>Leash behavior, puller or loose? How do they do when walked alongside other pups?</li>
-                            <li>Reactions to other pups, strangers, runners, and cyclists?</li>
+                            <li>Leash behavior: puller or loose? How are they alongside other pups?</li>
+                            <li>Reactions to other pups, strangers, runners, cyclists?</li>
+                            <li>Walks and backyard play are limited during heavy rain or temps over 85°F</li>
                         </ul>
                     </div>
 
-                    <!-- 3. Personality & Alone Time -->
+                    <!-- 4. Personality & Alone Time -->
                     <div class="pb-1">
                         <div class="flex items-center gap-1.5 text-white font-semibold text-base mb-0.5">
                             <i class="fas fa-brain text-amber-500 text-sm w-4 text-center"></i>
@@ -332,15 +345,14 @@
                             <li>Friendliness with new people and dogs</li>
                             <li>I do dog walking and drop-in visits on Rover and Wag
                                 <ul class="pl-5 list-[circle] space-y-0.5 mt-0.5 text-slate-400/90 text-sm" style="list-style-type: circle;">
-                                    <li>Bella on Tuesdays, Eevee and Tina for drop-ins, Luke and Leia on Thursdays and Saturdays (periodic), on-demand</li>
-                                    <li>These visits typically run 1 to 1.5 hours, so your pup may be alone for that stretch</li>
-                                    <li>Crated or free roam while I'm out? Any anxiety signals to watch for?</li>
+                                    <li>Bella and Eevee/Tina Tues, Luke/Leia on Thurs/Sat (periodic), on-demand</li>
+                                    <li>Alone up to 1.5 hrs during visits: crated or free roam, any anxiety signals?</li>
                                 </ul>
                             </li>
                         </ul>
                     </div>
 
-                    <!-- 4. Bedtime -->
+                    <!-- 5. Bedtime -->
                     <div class="pb-0">
                         <div class="flex items-center gap-1.5 text-white font-semibold text-base mb-0.5">
                             <i class="fas fa-moon text-amber-500 text-sm w-4 text-center"></i>
